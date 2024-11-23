@@ -25,6 +25,7 @@ class GameMechs
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
+        //not needed, the objpos object has its own destructor, other data types are all premative and will delete by default
         ~GameMechs(); // is this one needed at all? Why or why not?
         
         bool getExitFlagStatus() const; 

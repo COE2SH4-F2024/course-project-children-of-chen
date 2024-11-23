@@ -41,6 +41,9 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     exitFlag = false;
+
+
+  
 }
 
 void GetInput(void)
@@ -56,6 +59,8 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
+
+   
 }
 
 void LoopDelay(void)

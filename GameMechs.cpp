@@ -2,15 +2,26 @@
 
 GameMechs::GameMechs()
 {
-    
+    input = ' ';
+    exitFlag = 0;
+    loseFlag = 0;
+    score = 0;
+    boardSizeX = 30;
+    boardSizeY = 15;
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
-    
+    input = ' ';
+    exitFlag = 0;
+    loseFlag = 0;
+    score = 0;
+    boardSizeX = boardX;
+    boardSizeY = boardY;
 }
 
-// do you need a destructor?
+// do you need a destructor? - no we dont 
 GameMechs::~GameMechs()
 {
     
