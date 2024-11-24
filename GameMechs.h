@@ -3,7 +3,7 @@
 
 #include <cstdlib>
 #include <time.h>
-
+#include "MacUILib.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
 
@@ -20,6 +20,8 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
+        int speed;
+        int speedLevel;
         objPos food;
 
     public:
@@ -42,8 +44,13 @@ class GameMechs
         
         int getScore() const;
         void incrementScore();
+
+        
         
         // More methods should be added here
+        void setSpeed(int s);
+        int getSpeed() const;
+        int getSpeedLevel() const;
 };
 
 #endif
