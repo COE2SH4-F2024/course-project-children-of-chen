@@ -22,6 +22,8 @@ void CleanUp(void);
 GameMechs* game = NULL;
 char input;
 
+
+
 int main(void)
 {
 
@@ -49,6 +51,7 @@ void Initialize(void)
 
     game = new GameMechs();
     myPlayer = new Player(game);
+
 }
 
 void GetInput(void)
@@ -111,10 +114,23 @@ void DrawScreen(void)
 
     objPos playerPos = myPlayer->getPlayerPos();
 
-    MacUILib_printf("Player[x,y] = [%d %d], %c",
-                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol);    
+    /* MacUILib_printf("Player[x,y] = [%d %d], %c",
+                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol); */    
 
-   
+
+    for(int i=0;i<game->getBoardSizeY();i++){
+        for(int j = 0;j<game->getBoardSizeX();j++){
+            if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
+                cout<<'#';
+            }
+            
+            else{
+                cout<<' ';
+            }
+        }
+        cout<<endl;
+    }
+
 }
 
 void LoopDelay(void)
