@@ -22,7 +22,7 @@ void CleanUp(void);
 GameMechs* game = NULL;
 char input;
 
-
+int foodConsumed = 0;
 
 int main(void)
 {
@@ -51,6 +51,7 @@ void Initialize(void)
 
     game = new GameMechs();
     myPlayer = new Player(game);
+    game->generateFood(myPlayer->getPlayerPos());
 
 }
 
@@ -67,6 +68,18 @@ void RunLogic(void)
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
 
+    objPos playerPos = myPlayer->getPlayerPos();
+    objPos foodPos = game->getFoodPos();
+
+    if (playerPos.pos->x == foodPos.pos->x&&playerPos.pos->y == foodPos.pos->y){
+        foodConsumed++;
+        game->incrementScore();
+        game->generateFood(playerPos);
+    }
+   
+
+
+    
 
     
 }
@@ -78,7 +91,7 @@ void DrawScreen(void)
 
     objPos playerPos = myPlayer->getPlayerPos();
     objPos foodPos = game->getFoodPos();
-
+    
     /* MacUILib_printf("Player[x,y] = [%d %d], %c",
                     playerPos.pos->x, playerPos.pos->y, playerPos.symbol); */
     MacUILib_printf("Food[x,y] = [%d %d], %c\n", foodPos.pos->x, foodPos.pos->y, foodPos.symbol);    

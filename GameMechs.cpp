@@ -146,10 +146,11 @@ void GameMechs::generateFood(objPos blockOff)
 
     while(!valid)
     {
+
         randomx = (rand() % (boardSizeX - 2)) + 1;
         randomy = (rand() % (boardSizeY - 2)) + 1;
-
-        if(!((blockOff.pos->x == randomx) || (randomx<1)) && !((blockOff.pos->y == randomy) || (randomy<1))){
+        
+        if((blockOff.pos->x != randomx)  && (blockOff.pos->y != randomy)){
             valid = true;
         }
 
