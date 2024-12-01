@@ -64,47 +64,11 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    if(game->getInput() != 0)  // if not null character
-    {
-        switch(game->getInput())
-        {                      
-            case ']':  // exit
-                game->setExitTrue();
-                break;
+    myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
 
-            case 'w':
-                
-                break;
-            case 's':
-                
-                break;
-            case 'a':
-                
-                break;
-            case 'd':
-                
-                break;
-            case '1':
-                game->setSpeed(900000);
-                break;
-            case '2':
-                game->setSpeed(650000);
-                break;
-            case '3':
-                game->setSpeed(450000);
-                break;
-            case '4':
-                game->setSpeed(300000);
-                break;
-            case '5':
-                game->setSpeed(100000);
-                break;
-            default:
-                break;
 
-        }
-        game->clearInput();
-    }
+    
 }
 
 void DrawScreen(void)
@@ -113,15 +77,23 @@ void DrawScreen(void)
     MacUILib_clearScreen();
 
     objPos playerPos = myPlayer->getPlayerPos();
+    objPos foodPos = game->getFoodPos();
 
     /* MacUILib_printf("Player[x,y] = [%d %d], %c",
-                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol); */    
+                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol); */
+    MacUILib_printf("Food[x,y] = [%d %d], %c\n", foodPos.pos->x, foodPos.pos->y, foodPos.symbol);    
 
 
     for(int i=0;i<game->getBoardSizeY();i++){
         for(int j = 0;j<game->getBoardSizeX();j++){
             if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
                 cout<<'#';
+            }
+            else if(j == playerPos.pos->x && i == playerPos.pos->y){
+                MacUILib_printf("%c", playerPos.symbol);
+            }
+            else if(j == foodPos.pos->x && i == foodPos.pos->y){
+                MacUILib_printf("%c", foodPos.symbol);
             }
             
             else{
@@ -135,7 +107,8 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(game->getSpeed()); 
+   //MacUILib_Delay(game->getSpeed()); Will Implement back I mistakingly broke my bad king :(
+    MacUILib_Delay(100000); 
 }
 
 

@@ -33,9 +33,9 @@ void Player::updatePlayerDir()
         {
             switch(input)
             {
-                case ']':
+                case 27:
                     mainGameMechsRef->setExitTrue();
-                    break;
+                break;
 
 
                 case 'w':
@@ -58,11 +58,16 @@ void Player::updatePlayerDir()
                     myDir = RIGHT;
                 break;
 
+                case '1':
+                
+
+
                 default:
                     break;
             }
         }        
 }
+
 
 void Player::movePlayer()
 {

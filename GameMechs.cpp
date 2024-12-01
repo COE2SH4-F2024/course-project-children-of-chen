@@ -1,22 +1,28 @@
 #include "GameMechs.h"
+#include "MacUILib.h"
 
 GameMechs::GameMechs()
 {
     input = 0;
-    exitFlag = 0;
-    loseFlag = 0;
+    exitFlag = false;
+    loseFlag = false;
     score = 0;
     boardSizeX = 30;
     boardSizeY = 15;
     speed = 900000;
     speedLevel = 1;
+
+
+    
+    food.setObjPos(-10,-10, 'o');
+    //init the food object to be out of the gameboard, So when before it is set on the gameboard it does not appear on the board.
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     input = 0;
-    exitFlag = 0;
-    loseFlag = 0;
+    exitFlag = false;
+    loseFlag = false;
     score = 0;
     boardSizeX = boardX;
     boardSizeY = boardY;
@@ -41,7 +47,7 @@ bool GameMechs::getLoseFlagStatus() const
 }
     
 
-char GameMechs::getInput() const
+char GameMechs::getInput() 
 {
     return input;
 }
@@ -122,4 +128,45 @@ int GameMechs::getSpeed() const{
 int GameMechs::getSpeedLevel() const{
     return speedLevel;
 }
+
+// Iteration 2B
+
+void GameMechs::generateFood(objPos blockOff)
+{
+   
+
+    seed();
+
+    int randomx;
+    int randomy;
+
+    bool valid  = false;
+
+    
+
+    while(!valid)
+    {
+        randomx = (rand() % (boardSizeX - 2)) + 1;
+        randomy = (rand() % (boardSizeY - 2)) + 1;
+
+        if(!((blockOff.pos->x == randomx) || (randomx<1)) && !((blockOff.pos->y == randomy) || (randomy<1))){
+            valid = true;
+        }
+
+
+    }
+
+    food.setObjPos(randomx, randomy, 'o');
+
+}
+objPos GameMechs::getFoodPos() const
+{
+    return food;
+}
+
+void GameMechs::seed(){
+    srand(time(NULL));
+}
+
+
 
