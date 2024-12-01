@@ -2,7 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
-
+#include "objPosArrayList.h"
 #include "Player.h"
 using namespace std;
 
@@ -20,6 +20,7 @@ void LoopDelay(void);
 void CleanUp(void);
 
 GameMechs* game = NULL;
+objPosArrayList* snake = NULL;
 char input;
 
 int foodConsumed = 0;
@@ -52,6 +53,8 @@ void Initialize(void)
     game = new GameMechs();
     myPlayer = new Player(game);
     game->generateFood(myPlayer->getPlayerPos());
+    snake = new objPosArrayList();        
+    snake->insertHead(myPlayer->getPlayerPos());
 
 }
 
@@ -75,8 +78,9 @@ void RunLogic(void)
         foodConsumed++;
         game->incrementScore();
         game->generateFood(playerPos);
+        snake->insertHead(playerPos);
     }
-   
+    
 
 
     
@@ -92,15 +96,18 @@ void DrawScreen(void)
     objPos playerPos = myPlayer->getPlayerPos();
     objPos foodPos = game->getFoodPos();
     
-    /* MacUILib_printf("Player[x,y] = [%d %d], %c",
-                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol); */
-    MacUILib_printf("Food[x,y] = [%d %d], %c\n", foodPos.pos->x, foodPos.pos->y, foodPos.symbol);    
+      
 
 
     for(int i=0;i<game->getBoardSizeY();i++){
         for(int j = 0;j<game->getBoardSizeX();j++){
+            for(int k =0;k<snake->getSize();k++){
+                if((i==snake->getElement(k).pos->y)&&(j==snake->getElement(k).pos->x)){
+                    MacUILib_printf("%c",playerPos.symbol);
+                }
+            }
             if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
-                cout<<'#';
+                MacUILib_printf("#");
             }
             else if(j == playerPos.pos->x && i == playerPos.pos->y){
                 MacUILib_printf("%c", playerPos.symbol);
@@ -110,18 +117,21 @@ void DrawScreen(void)
             }
             
             else{
-                cout<<' ';
+                MacUILib_printf(" ");
             }
         }
-        cout<<endl;
+        MacUILib_printf("\n");
     }
+    MacUILib_printf("\n");
+    MacUILib_printf("Your score is: %d\n",game->getScore());
+    MacUILib_printf("Your speed level is: %d\n",game->getSpeedLevel());
 
 }
 
 void LoopDelay(void)
 {
-   //MacUILib_Delay(game->getSpeed()); Will Implement back I mistakingly broke my bad king :(
-    MacUILib_Delay(100000); 
+   MacUILib_Delay(game->getSpeed()); 
+
 }
 
 
@@ -131,5 +141,5 @@ void CleanUp(void)
     
     MacUILib_uninit();
     delete game;
-    delete myPlayer;  
+    delete myPlayer; 
 }

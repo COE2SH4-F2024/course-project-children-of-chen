@@ -97,21 +97,26 @@ void GameMechs::clearInput()
 
 void GameMechs::setSpeed(int this_speed){
     speed = this_speed;
-    switch(speed){
-        case 900000:
+    switch(input){
+        case 1:
             speedLevel = 1;
+            speed = 900000;
             break;
-        case 650000:
+        case 2:
             speedLevel = 2;
+            speed = 650000;
             break;
-        case 450000:
+        case 3:
             speedLevel = 3;
+            speed = 450000;
             break;
-        case 300000:
+        case 4:
             speedLevel = 4;
+            speed = 300000;
             break;
-        case 100000:
+        case 5:
             speedLevel = 5;
+            speed = 100000;
             break;
         default: 
             break;
