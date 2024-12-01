@@ -52,7 +52,7 @@ void objPosArrayList::removeHead()
         cout<<"List is empty"<<endl;
         return;
     }
-    for(int i=0;i<listSize;i++){
+    for(int i=0;i<listSize-1;i++){
         aList[i]=aList[i+1];
     }
     listSize--;

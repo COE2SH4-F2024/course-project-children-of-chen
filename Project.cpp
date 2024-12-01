@@ -23,7 +23,7 @@ GameMechs* game = NULL;
 objPosArrayList* snake = NULL;
 char input;
 
-int foodConsumed = 0;
+int foodConsumed = 0,foodEaten;
 
 int main(void)
 {
@@ -73,16 +73,26 @@ void RunLogic(void)
 
     objPos playerPos = myPlayer->getPlayerPos();
     objPos foodPos = game->getFoodPos();
-
+    foodEaten = 0;
     if (playerPos.pos->x == foodPos.pos->x&&playerPos.pos->y == foodPos.pos->y){
         foodConsumed++;
         game->incrementScore();
         game->generateFood(playerPos);
         snake->insertHead(playerPos);
+        foodEaten = 1;
+    }
+
+    if(foodEaten = 0){
+        snake->insertHead(playerPos);
+        snake->removeTail();
     }
     
-
-
+    for(int i =1;i<snake->getSize();i++){
+        if((snake->getElement(0).pos->x == snake->getElement(i).pos->x)&&(snake->getElement(0).pos->y == snake->getElement(i).pos->y)){
+            game->setLoseFlag();
+        }
+    }
+    
     
 
     
@@ -97,7 +107,10 @@ void DrawScreen(void)
     objPos foodPos = game->getFoodPos();
     
       
-
+    if(game->getLoseFlagStatus()){
+        game->setExitTrue();
+        MacUILib_printf("!!GAME OVER!! You hit the snake's body");
+    }
 
     for(int i=0;i<game->getBoardSizeY();i++){
         for(int j = 0;j<game->getBoardSizeX();j++){
@@ -109,9 +122,9 @@ void DrawScreen(void)
             if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
                 MacUILib_printf("#");
             }
-            else if(j == playerPos.pos->x && i == playerPos.pos->y){
+            /* else if(j == playerPos.pos->x && i == playerPos.pos->y){
                 MacUILib_printf("%c", playerPos.symbol);
-            }
+            } */
             else if(j == foodPos.pos->x && i == foodPos.pos->y){
                 MacUILib_printf("%c", foodPos.symbol);
             }
@@ -130,7 +143,8 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-   MacUILib_Delay(game->getSpeed()); 
+   //MacUILib_Delay(game->getSpeed()); 
+   MacUILib_Delay(150000);
 
 }
 

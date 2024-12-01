@@ -9,7 +9,6 @@ objPosArrayList::objPosArrayList()
     aList = new objPos[ARRAY_MAX_CAP];
     listSize = 0;
     arrayCapacity = ARRAY_MAX_CAP;
-    cout<<"listsize1:"<<listSize<<endl;
 }
 
 
@@ -21,7 +20,6 @@ objPosArrayList::~objPosArrayList()
 
 int objPosArrayList::getSize() const
 {
-    cout<<"listsize:"<<listSize<<endl;
     return listSize;
 }
 
@@ -54,7 +52,7 @@ void objPosArrayList::removeHead()
         cout<<"List is empty"<<endl;
         return;
     }
-    for(int i=0;i<listSize;i++){
+    for(int i=0;i<listSize-1;i++){
         aList[i]=aList[i+1];
     }
     listSize--;
