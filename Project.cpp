@@ -107,10 +107,7 @@ void DrawScreen(void)
     objPos foodPos = game->getFoodPos();
     int isBody =0;
       
-    if(game->getLoseFlagStatus()){
-        game->setExitTrue();
-        MacUILib_printf("!!GAME OVER!! You hit the snake's body");
-    }
+    
 
     for(int i=0;i<game->getBoardSizeY();i++){
         for(int j = 0;j<game->getBoardSizeX();j++){
@@ -148,6 +145,10 @@ void DrawScreen(void)
         MacUILib_printf("Game ended by player!\n");
         MacUILib_printf("Your final score is: %d",game->getScore());
     }
+    if(game->getLoseFlagStatus()){
+        game->setExitTrue();
+        MacUILib_printf("!!GAME OVER!! You hit the snake's body");
+    }
 }
 
 void LoopDelay(void)
@@ -160,7 +161,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();  
+    //MacUILib_clearScreen();  
     
     MacUILib_uninit();
     delete game;
