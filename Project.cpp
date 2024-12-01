@@ -82,7 +82,7 @@ void RunLogic(void)
         foodEaten = 1;
     }
 
-    if(foodEaten = 0){
+    if(foodEaten == 0){
         snake->insertHead(playerPos);
         snake->removeTail();
     }
@@ -105,7 +105,7 @@ void DrawScreen(void)
 
     objPos playerPos = myPlayer->getPlayerPos();
     objPos foodPos = game->getFoodPos();
-    
+    int isBody =0;
       
     if(game->getLoseFlagStatus()){
         game->setExitTrue();
@@ -114,12 +114,17 @@ void DrawScreen(void)
 
     for(int i=0;i<game->getBoardSizeY();i++){
         for(int j = 0;j<game->getBoardSizeX();j++){
+            isBody = 0;
             for(int k =0;k<snake->getSize();k++){
                 if((i==snake->getElement(k).pos->y)&&(j==snake->getElement(k).pos->x)){
-                    MacUILib_printf("%c",playerPos.symbol);
+                    isBody = 1;
+                    
                 }
             }
-            if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
+            if(isBody){
+                MacUILib_printf("%c",playerPos.getSymbol());
+            }
+            else if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
                 MacUILib_printf("#");
             }
             /* else if(j == playerPos.pos->x && i == playerPos.pos->y){
@@ -139,6 +144,10 @@ void DrawScreen(void)
     MacUILib_printf("Your score is: %d\n",game->getScore());
     MacUILib_printf("Your speed level is: %d\n",game->getSpeedLevel());
 
+    if(game->getExitFlagStatus()){
+        MacUILib_printf("Game ended by player!\n");
+        MacUILib_printf("Your final score is: %d",game->getScore());
+    }
 }
 
 void LoopDelay(void)
