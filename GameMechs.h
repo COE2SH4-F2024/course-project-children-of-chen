@@ -48,7 +48,7 @@ class GameMechs
         
         
         // More methods should be added here
-        void setSpeed(int s);
+        void setSpeed();
         int getSpeed() const;
         int getSpeedLevel() const;
 

@@ -93,8 +93,7 @@ void RunLogic(void)
         }
     }
     
-    
-
+    game->setSpeed();
     
 }
 
@@ -124,22 +123,19 @@ void DrawScreen(void)
             else if(i==0||j==0||i==game->getBoardSizeY()-1||j==game->getBoardSizeX()-1){
                 MacUILib_printf("#");
             }
-            /* else if(j == playerPos.pos->x && i == playerPos.pos->y){
-                MacUILib_printf("%c", playerPos.symbol);
-            } */
             else if(j == foodPos.pos->x && i == foodPos.pos->y){
                 MacUILib_printf("%c", foodPos.symbol);
             }
-            
             else{
                 MacUILib_printf(" ");
             }
         }
         MacUILib_printf("\n");
     }
+
     MacUILib_printf("\n");
     MacUILib_printf("Your score is: %d\n",game->getScore());
-    MacUILib_printf("Your speed level is: %d\n",game->getSpeedLevel());
+    MacUILib_printf("Your speed level(1-5) is: %d\n",game->getSpeedLevel());
 
     if(game->getExitFlagStatus()){
         MacUILib_printf("Game ended by player!\n");
@@ -147,14 +143,14 @@ void DrawScreen(void)
     }
     if(game->getLoseFlagStatus()){
         game->setExitTrue();
-        MacUILib_printf("!!GAME OVER!! You hit the snake's body");
+        MacUILib_printf("!!GAME OVER!! \nYou hit the snake's body\n");
+        MacUILib_printf("Your final score is: %d",game->getScore());
     }
 }
 
 void LoopDelay(void)
 {
-   //MacUILib_Delay(game->getSpeed()); 
-   MacUILib_Delay(150000);
+   MacUILib_Delay(game->getSpeed()); 
 
 }
 
