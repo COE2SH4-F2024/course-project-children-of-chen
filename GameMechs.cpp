@@ -138,6 +138,7 @@ int GameMechs::getSpeedLevel() const{
 
 // Iteration 2B
 
+//Food Generation
 void GameMechs::generateFood(objPos blockOff)
 {
    
@@ -150,7 +151,7 @@ void GameMechs::generateFood(objPos blockOff)
     bool valid  = false;
 
     
-
+    //We run a while loop for while the condition is false, we check if the random coordinates match with our block of positions, if not then we set our food to the random coordinates.
     while(!valid)
     {
 
@@ -172,6 +173,7 @@ objPos GameMechs::getFoodPos() const
     return food;
 }
 
+// Creating a Pseudo randomizer using the the function
 void GameMechs::seed(){
     srand(time(NULL));
 }
