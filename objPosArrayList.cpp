@@ -6,13 +6,14 @@ using namespace std;
 
 objPosArrayList::objPosArrayList()
 {
+    //create new array list with max size of 200
     aList = new objPos[ARRAY_MAX_CAP];
     listSize = 0;
     arrayCapacity = ARRAY_MAX_CAP;
 }
 
 
-
+//destructor
 objPosArrayList::~objPosArrayList()
 {
     delete [] aList;

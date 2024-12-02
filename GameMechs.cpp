@@ -1,7 +1,7 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
-GameMechs::GameMechs()
+GameMechs::GameMechs() // default constructor
 {
     input = 0;
     exitFlag = false;
@@ -18,7 +18,7 @@ GameMechs::GameMechs()
     //init the food object to be out of the gameboard, So when before it is set on the gameboard it does not appear on the board.
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY) // custom constructor with user specified board size
 {
     input = 0;
     exitFlag = false;
@@ -30,7 +30,8 @@ GameMechs::GameMechs(int boardX, int boardY)
     speedLevel = 1;
 }
 
-// do you need a destructor? - no we dont 
+// do you need a destructor? - no we dont, this class contains objpos which will use objpos class destructor
+// other variables are primative so they're automatically destroyed
 GameMechs::~GameMechs()
 {
     
@@ -85,17 +86,19 @@ void GameMechs::setLoseFlag()
 
 void GameMechs::setInput(char this_input)
 {
-    input = this_input;
+    input = this_input; // stores the scanned input in variable for future use
 }
 
 void GameMechs::clearInput()
 {
-    input = 0;
+    input = 0; // clearning input so that the previous input doesn't interfer with the program
 }
 
 // More methods should be added here
 
 void GameMechs::setSpeed(){
+    // switch case of 1 to 5 for different speed
+    //variable speed level is only there for display
     switch(input){
         case '1':
             speedLevel = 1;
